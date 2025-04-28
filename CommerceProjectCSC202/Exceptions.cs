@@ -24,4 +24,22 @@ namespace CommerceProjectCSC202
         {
         }
     }
+    public class OutOfStockException : Exception
+    {
+        // Default constructor
+        public OutOfStockException() : base("This is the base one")
+        {
+            Console.WriteLine("Product is out of stock!");
+        }
+
+        // Constructor that takes a custom message
+        public OutOfStockException(string message) : base(message)
+        {
+        }
+
+        // Constructor that takes a custom message and inner exception
+        public OutOfStockException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+    }
 }

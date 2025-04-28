@@ -13,12 +13,28 @@ namespace CommerceProjectCSC202
         public int ProductStockLeft;
         public double ProductPrice;
         public bool instock => ProductStockLeft > 0;
-        public Product(string ProductName, string ProductDescrip, int ProductStock, double ProductPrice) 
+        public Product(string ProductName, string ProductDescrip, int ProductStock, double ProductPrice)
         {
             this.ProductName = ProductName;
             this.ProductPrice = ProductPrice;
             this.ProductStockLeft = ProductStock;
             this.ProductDescription = ProductDescrip;
+        }
+        public void ReduceStock() 
+        {
+            int ProductStockLeftTMP = ProductStockLeft - 1;
+            if (ProductStockLeftTMP >= 0)
+            {
+                ProductStockLeft = ProductStockLeftTMP;
+            }
+            else {
+                throw new OutOfStockException();
+            }
+        }
+
+        public override string ToString() 
+        {
+            return $"Name: {ProductName} \nDescription: {ProductDescription}\nPrice: {ProductPrice}\n Stock Remaining: {ProductStockLeft}\n"
         }
     }
 }

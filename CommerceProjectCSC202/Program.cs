@@ -4,9 +4,12 @@
     {
         static void Main(string[] args)
         {
-
+            Random rand = new Random();
             //Variable Initialization area.
-            
+            List<Product> products = new List<Product>();
+            List<Product> cart = new List<Product>();
+
+
             while (true)
             {
                 // This interface system is based on my previous CSC 200 project. It's too good not to reuse for a console based commerce system!
