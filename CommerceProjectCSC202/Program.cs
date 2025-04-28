@@ -44,6 +44,7 @@
                         switch (sel)
                         {
                             case 1:
+                                Console.Write("Insert Selection now: ");
                                 Search(Console.ReadLine(), ref products);
                                 break;
                             case 2:
@@ -91,16 +92,16 @@
         static void Search(string search, ref List<Product> products)
         {
             int found = 0;
-            int i = 0;
             foreach (Product product in products) 
             {
                 if (product.ProductName.ToLower().Contains(search.ToLower())) 
                 {
-                    Console.WriteLine("ID is: " + i.ToString());
-                    Console.WriteLine(product);
+                    
+                    Console.WriteLine("Name is: " + product.ProductName);
+                    Console.WriteLine("ID is: " + product.Productid.ToString());
                     found++;
                 }
-                i++;
+                
             }
             if (found == 0) 
             {

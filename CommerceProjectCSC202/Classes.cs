@@ -8,6 +8,8 @@ namespace CommerceProjectCSC202
 {
     internal class Product
     {
+        static int idtobe = 0;
+        public int Productid { get; private set; }
         public string ProductName { get; private set; }
         public string ProductDescription { get; private set; }
         public int ProductStockLeft;
@@ -15,6 +17,7 @@ namespace CommerceProjectCSC202
         public bool instock => ProductStockLeft > 0;
         public Product(string ProductName, string ProductDescrip, int ProductStock, double ProductPrice)
         {
+            this.Productid = idtobe++;
             this.ProductName = ProductName;
             this.ProductPrice = ProductPrice;
             this.ProductStockLeft = ProductStock;
@@ -46,7 +49,7 @@ namespace CommerceProjectCSC202
 
         public override string ToString() 
         {
-            return $"Name: {ProductName} \nDescription: {ProductDescription}\nPrice: {ProductPrice}\n Stock Remaining: {ProductStockLeft}\n"
+            return $"Name: {ProductName} \nDescription: {ProductDescription}\nPrice: {ProductPrice}\n Stock Remaining: {ProductStockLeft}\n";
         }
     }
 }
