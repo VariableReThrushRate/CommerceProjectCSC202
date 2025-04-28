@@ -37,7 +37,25 @@
                         switch (sel)
                         {
                             case 1:
-                                
+                                throw new NotImplementedException();
+                                break;
+                            case 2:
+                                throw new NotImplementedException();
+                                break;
+                            case 3:
+                                throw new NotImplementedException();
+                                break;
+                            case 4:
+                                throw new NotImplementedException();
+                                break;
+                            case 5:
+                                throw new NotImplementedException();
+                                break;
+                            case 6:
+                                throw new NotImplementedException();
+                                break;
+                            case 7:
+                                throw new NotImplementedException();
                                 break;
                             default:
                                 Console.WriteLine("How did you get here???");
