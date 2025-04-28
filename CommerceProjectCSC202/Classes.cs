@@ -9,12 +9,16 @@ namespace CommerceProjectCSC202
     internal class Product
     {
         public string ProductName { get; private set; }
+        public string ProductDescription { get; private set; }
         public int ProductStockLeft;
         public double ProductPrice;
         public bool instock => ProductStockLeft > 0;
-        public Product(string ProductName, int ProductStock, double ProductPrice) 
+        public Product(string ProductName, string ProductDescrip, int ProductStock, double ProductPrice) 
         {
-
+            this.ProductName = ProductName;
+            this.ProductPrice = ProductPrice;
+            this.ProductStockLeft = ProductStock;
+            this.ProductDescription = ProductDescrip;
         }
     }
 }
