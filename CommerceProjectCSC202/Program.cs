@@ -26,7 +26,11 @@
 
                 Console.Write("Insert selection here: ");
 
+                Console.ForegroundColor= ConsoleColor.Blue;
+
                 string brug = Console.ReadLine();
+
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 try
                 {
                     //exit line
@@ -40,7 +44,7 @@
                         switch (sel)
                         {
                             case 1:
-                                throw new NotImplementedException();
+                                Search(Console.ReadLine(), ref products);
                                 break;
                             case 2:
                                 throw new NotImplementedException();
@@ -72,19 +76,37 @@
                 }
                 catch (NotImplementedException exception)
                 {
-                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("That function is not implimented:" + exception.ToString());
-                    //Console.Write("That did not work. Please try again : ");
-                    //brug = Console.ReadLine();
+                    
                 }
                 catch (Exception exception)
                 {
-                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("\nThat did not work. Please try again.\n");
                     Console.Write(exception.ToString());
-                    //brug = Console.ReadLine();
                 }
             }
         }
+        static void Search(string search, ref List<Product> products)
+        {
+            int found = 0;
+            int i = 0;
+            foreach (Product product in products) 
+            {
+                if (product.ProductName.ToLower().Contains(search.ToLower())) 
+                {
+                    Console.WriteLine("ID is: " + i.ToString());
+                    Console.WriteLine(product);
+                    found++;
+                }
+                i++;
+            }
+            if (found == 0) 
+            {
+                Console.WriteLine("No Products found!");
+            }
+        }
     }
+    
 }

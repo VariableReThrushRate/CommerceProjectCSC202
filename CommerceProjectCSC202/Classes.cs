@@ -31,6 +31,18 @@ namespace CommerceProjectCSC202
                 throw new OutOfStockException();
             }
         }
+        public void ReduceStock(int stockreduce)
+        {
+            int ProductStockLeftTMP = ProductStockLeft - stockreduce;
+            if (ProductStockLeftTMP >= 0)
+            {
+                ProductStockLeft = ProductStockLeftTMP;
+            }
+            else
+            {
+                throw new OutOfStockException();
+            }
+        }
 
         public override string ToString() 
         {
