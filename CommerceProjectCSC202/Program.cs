@@ -7,6 +7,7 @@
             
             while (true)
             {
+                // This interface system is based on my previous CSC 200 project. It's too good not to reuse for a console based commerce system!
                 Console.ForegroundColor = ConsoleColor.Green;
 
                 Console.WriteLine("Please select the method you'd like to run, or press EEE to exit.:");
