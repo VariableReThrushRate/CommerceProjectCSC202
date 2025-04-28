@@ -4,6 +4,8 @@
     {
         static void Main(string[] args)
         {
+
+            //Variable Initialization area.
             
             while (true)
             {
@@ -11,8 +13,14 @@
                 Console.ForegroundColor = ConsoleColor.Green;
 
                 Console.WriteLine("Please select the method you'd like to run, or press EEE to exit.:");
-                Console.WriteLine("1. Get a specific aircraft's info via its callsign.");
-                
+                Console.WriteLine("1. Search for a product by name.");
+                Console.WriteLine("2. Get more details on a product by ID.");
+                Console.WriteLine("3. Add a Product to your cart.");
+                Console.WriteLine("4. Remove a Product from Cart.");
+                Console.WriteLine("5. Check out your cart.");
+                Console.WriteLine("6. Register a product.");
+                Console.WriteLine("7. Delist a product.");
+
                 Console.Write("Insert selection here: ");
 
                 string brug = Console.ReadLine();
