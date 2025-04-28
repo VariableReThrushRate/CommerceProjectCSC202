@@ -39,7 +39,7 @@
                         break;
                     }
                     int sel = Convert.ToInt32(brug);
-                    if (sel >= 1 && sel <= 12) // Update that value whenever you add a method:
+                    if (sel >= 1 && sel <= 7) // Update that value whenever you add a method:
                     {
                         switch (sel)
                         {
@@ -48,7 +48,9 @@
                                 Search(Console.ReadLine(), ref products);
                                 break;
                             case 2:
-                                throw new NotImplementedException();
+                                Console.Write("Insert an ID Number now: ");
+                                string read = Console.ReadLine();
+                                GetInfo(int.Parse(read), ref products);
                                 break;
                             case 3:
                                 throw new NotImplementedException();
@@ -81,6 +83,12 @@
                     Console.WriteLine("That function is not implimented:" + exception.ToString());
                     
                 }
+                catch (FormatException exception)
+                {
+                    Console.ForegroundColor= ConsoleColor.Red;
+                    Console.WriteLine("That was not converted right! Please try again.");
+                    Console.WriteLine(exception.ToString());
+                }
                 catch (Exception exception)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
@@ -107,6 +115,20 @@
             {
                 Console.WriteLine("No Products found!");
             }
+        }
+        static void GetInfo(int searchID, ref List<Product> products)
+        {
+            foreach (Product product in products)
+            {
+                if (product.Productid == searchID)
+                {
+
+                    Console.WriteLine(product);
+                }
+
+            }
+            Console.WriteLine("No Products found!");
+            
         }
     }
     
