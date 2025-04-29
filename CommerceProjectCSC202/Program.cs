@@ -63,13 +63,15 @@
                                 RemoveCart(int.Parse(read3), ref cart);
                                 break;
                             case 5:
-                                throw new NotImplementedException();
+                                PrintCart(ref cart);
                                 break;
                             case 6:
                                 throw new NotImplementedException();
                                 break;
                             case 7:
-                                throw new NotImplementedException();
+                                Console.WriteLine("Insert an ID Number now: ");
+                                string read4 = Console.ReadLine();
+                                Remove(int.Parse(read4), ref products);
                                 break;
                             default:
                                 Console.WriteLine("How did you get here???");
@@ -169,6 +171,35 @@
                 cart.Remove(product);
             }
             
+        }
+        static void PrintCart(ref List<Product> cart) 
+        {
+           Console.WriteLine("Printing cart!");
+            foreach (Product product in cart) 
+            {
+                Console.WriteLine(product);
+            }
+        }
+        static void Remove(int searchID, ref List<Product> products)
+        {
+            Product product = null;
+            foreach (Product tproduct in products)
+            {
+                if (tproduct.Productid == searchID)
+                {
+                    product = tproduct;
+                    break;
+                }
+            }
+            if (product == null)
+            {
+                Console.WriteLine("Item not found!");
+            }
+            else
+            {
+                products.Remove(product);
+            }
+
         }
     }
     
