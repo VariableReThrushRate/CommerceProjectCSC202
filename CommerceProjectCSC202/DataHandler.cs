@@ -10,16 +10,31 @@ namespace CommerceProjectCSC202
 {
     internal class DataHandler
     {
-        public static List<Product> Load() 
+        static JsonSerializerOptions options = new JsonSerializerOptions
+        {
+        IncludeFields = true,
+        PropertyNameCaseInsensitive = true
+        };
+    public static List<Product> Load() 
         {
             try
             {
+                Product.Setid(int.Parse(File.ReadAllText("Indexer.txt")));
+            }
+            catch (FileNotFoundException)
+            {
+                Console.WriteLine("No indexer. Initializing!");
+                Product.Setid(0);
+            }
+            try
+            {
                 var json = File.ReadAllText("CommerceData.json");
-                List<Product> list = JsonSerializer.Deserialize<List<Product>>(json);
+                List<Product> list = JsonSerializer.Deserialize<List<Product>>(json, options);
                 return list;
             }
             catch (FileNotFoundException) 
             {
+                Console.WriteLine("No data found. Initializing!");
                 return new List<Product>();
             }
             catch (Exception ex)
@@ -48,7 +63,7 @@ namespace CommerceProjectCSC202
                 Console.WriteLine("Main save didn't exist. Creating.");
             }
 
-            string json = JsonSerializer.Serialize(products);
+            string json = JsonSerializer.Serialize(products, options);
             File.WriteAllText("CommerceData.json", json);
             Console.WriteLine("Data saved!");
         }
