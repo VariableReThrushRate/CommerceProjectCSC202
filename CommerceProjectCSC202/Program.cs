@@ -21,8 +21,8 @@ namespace CommerceProjectCSC202
                 Console.WriteLine("2. Get more details on a product by ID.");
                 Console.WriteLine("3. Add a Product to your cart.");
                 Console.WriteLine("4. Remove a Product from Cart.");
-                Console.WriteLine("5. Checkout your Cart.");
-                Console.WriteLine("6. Check out your cart.");
+                Console.WriteLine("5. Display your Cart.");
+                Console.WriteLine("6. Checkout your cart.");
                 Console.WriteLine("7. Register a product.");
                 Console.WriteLine("8. Delist a product.");
                 Console.WriteLine("9. Add to the stock of a product.");
@@ -258,6 +258,7 @@ namespace CommerceProjectCSC202
             Console.Write("Insert your credit card Security code: ");
             string cvc = Console.ReadLine();
             Console.Write("Insert your Street Address: ");
+            string address = Console.ReadLine();
             // Thanks to https://gist.github.com/arundvp/188d92fefda9bb7546ee52a9ecf7aad6 for this regex. I would have no idea how to do this otherwise 💀
             if (!Regex.IsMatch(number, @"^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|6(?:011|5[0-9]{2})[0-9]{12}|(?:2131|1800|35\d{3})\d{11})$")) 
             {
