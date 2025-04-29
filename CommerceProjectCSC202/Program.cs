@@ -54,12 +54,12 @@
                                 GetInfo(int.Parse(read), ref products);
                                 break;
                             case 3:
-                                Console.WriteLine("Insert an ID Number now: ");
+                                Console.Write("Insert an ID Number now: ");
                                 string read2 = Console.ReadLine();
                                 AddCart(int.Parse(read2), ref products, ref cart);
                                 break;
                             case 4:
-                                Console.WriteLine("Insert an ID Number now: ");
+                                Console.Write("Insert an ID Number now: ");
                                 string read3 = Console.ReadLine();
                                 RemoveCart(int.Parse(read3), ref cart);
                                 break;
@@ -81,14 +81,14 @@
                                 products.Add(tproduct);
                                 break;
                             case 7:
-                                Console.WriteLine("Insert an ID Number now: ");
+                                Console.Write("Insert an ID Number now: ");
                                 string read4 = Console.ReadLine();
                                 Remove(int.Parse(read4), ref products);
                                 break;
                             case 8:
-                                Console.WriteLine("Insert an ID Number now: ");
+                                Console.Write("Insert an ID Number now: ");
                                 string read5 = Console.ReadLine();
-                                Console.WriteLine("Insert how much stock to add: ");
+                                Console.Write("Insert how much stock to add: ");
                                 string read6 = Console.ReadLine();
                                 UpdateStock(int.Parse(read5), ref products, int.Parse(read6));
                                 break;
@@ -227,7 +227,8 @@
                 if (tproduct.Productid == searchID)
                 {
                     tproduct.AddStock(stockamount);
-                    break;
+                    Console.WriteLine("Stock updated!");
+                    return;
                 }
             }
             

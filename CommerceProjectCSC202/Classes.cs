@@ -18,7 +18,8 @@ namespace CommerceProjectCSC202
         public bool instock => ProductStockLeft > 0;
         public Product(string ProductName, string ProductDescrip, int stock, double ProductPrice)
         {
-            this.Productid = idtobe++;
+            idtobe++;
+            this.Productid = idtobe;
             this.ProductName = ProductName;
             this.ProductPrice = ProductPrice;
             this.ProductDescription = ProductDescrip;
