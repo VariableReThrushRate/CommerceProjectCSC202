@@ -10,18 +10,22 @@ namespace CommerceProjectCSC202
 {
     internal class Product
     {
-        static int idtobe = 0;
-        [JsonIgnore] public int Productid { get; private set; }
+        [JsonIgnore]static int idtobe = 0;
+        public int Productid { get; private set; }
         public string ProductName { get; private set; }
         public string ProductDescription { get; private set; }
         public int ProductStockLeft { get; private set; } = 1000;
         public double ProductPrice;
         [JsonIgnore]  public bool  instock => ProductStockLeft > 0 ;
-        public Product()
+        [JsonConstructorAttribute]
+        public Product(int Productid, string ProductName, string ProductDescription, int ProductStockLeft, double ProductPrice) 
         {
-            
+            this.Productid = Productid;
+            this.ProductName = ProductName;
+            this.ProductPrice = ProductPrice;
+            this.ProductDescription = ProductDescription;
+            this.ProductStockLeft = ProductStockLeft;
         }
-
         public Product(string ProductName, string ProductDescrip, int stock, double ProductPrice)
         {
             idtobe++;
@@ -66,6 +70,10 @@ namespace CommerceProjectCSC202
         public static void Setid(int id)
         {
             idtobe = id;
+        }
+        public static int GetID() 
+        {
+            return idtobe;
         }
 
         public override string ToString() 

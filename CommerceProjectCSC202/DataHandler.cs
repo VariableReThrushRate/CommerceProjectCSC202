@@ -48,6 +48,23 @@ namespace CommerceProjectCSC202
         {
             try
             {
+                File.Delete("Indexer.txt");
+            }
+            catch (FileNotFoundException)
+            {
+                Console.WriteLine("No indexer. Saving instead!");
+            }
+            try
+            {
+                File.WriteAllText("Indexer.txt", Product.GetID().ToString());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Something went wrong. Dumping!");
+                Console.WriteLine(ex.ToString());
+            }
+            try
+            {
                 File.Delete("CommerceData.json.bak");
             }
             catch 

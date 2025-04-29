@@ -119,6 +119,7 @@
                     Console.WriteLine("\nThat did not work. Please try again.\n");
                     Console.Write(exception.ToString());
                 }
+                DataHandler.Save(products);
             }
             DataHandler.Save(products);
         }
