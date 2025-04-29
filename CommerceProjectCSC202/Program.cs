@@ -66,7 +66,15 @@
                                 PrintCart(ref cart);
                                 break;
                             case 6:
-                                throw new NotImplementedException();
+                                Console.WriteLine("Adding new product!");
+                                Console.Write("Insert a name for the product: ");
+                                string name = Console.ReadLine();
+                                Console.Write("Insert a Description for the product: ");
+                                string description = Console.ReadLine();
+                                Console.Write("Insert a price for the product: ");
+                                int price = int.Parse(Console.ReadLine());
+                                Console.WriteLine("Adding new product!");
+                                products.Add(new Product(name, description, price));
                                 break;
                             case 7:
                                 Console.WriteLine("Insert an ID Number now: ");
