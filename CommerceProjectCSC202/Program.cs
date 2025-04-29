@@ -88,7 +88,9 @@
                             case 8:
                                 Console.WriteLine("Insert an ID Number now: ");
                                 string read5 = Console.ReadLine();
-                                Remove(int.Parse(read5), ref products);
+                                Console.WriteLine("Insert how much stock to add: ");
+                                string read6 = Console.ReadLine();
+                                UpdateStock(int.Parse(read5), ref products, int.Parse(read6));
                                 break;
                             default:
                                 Console.WriteLine("How did you get here???");
@@ -224,7 +226,7 @@
             {
                 if (tproduct.Productid == searchID)
                 {
-                    tproduct.SetStock(stockamount);
+                    tproduct.AddStock(stockamount);
                     break;
                 }
             }
