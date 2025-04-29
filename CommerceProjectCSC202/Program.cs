@@ -73,7 +73,7 @@
                                 Console.Write("Insert a Description for the product: ");
                                 string description = Console.ReadLine();
                                 Console.Write("Insert a price for the product: ");
-                                int price = int.Parse(Console.ReadLine());
+                                double price = double.Parse(Console.ReadLine());
                                 Console.Write("Insert an initial stock for the product: ");
                                 int stock = int.Parse(Console.ReadLine());
                                 Product tproduct = new Product(name, description, stock, price);
@@ -227,7 +227,7 @@
                 if (tproduct.Productid == searchID)
                 {
                     tproduct.AddStock(stockamount);
-                    Console.WriteLine("Stock updated!");
+                    Console.WriteLine("Stock updated! It is now:" + tproduct.ProductStockLeft.ToString());
                     return;
                 }
             }

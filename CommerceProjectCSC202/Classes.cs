@@ -25,6 +25,11 @@ namespace CommerceProjectCSC202
             this.ProductDescription = ProductDescrip;
             this.ProductStockLeft = stock;
         }
+        public void AddStock(int stock)
+        {
+            ProductStockLeft = ProductStockLeft + Math.Abs(stock);
+
+        }
         public void ReduceStock() 
         {
             int ProductStockLeftTMP = ProductStockLeft - 1;
@@ -36,11 +41,7 @@ namespace CommerceProjectCSC202
                 throw new OutOfStockException();
             }
         }
-        public void AddStock(int stock)
-        {
-            int ProductStockLeftTMP = ProductStockLeft + Math.Abs(stock);
-            
-        }
+        
         public void ReduceStock(int stockreduce)
         {
             int ProductStockLeftTMP = ProductStockLeft - stockreduce;
