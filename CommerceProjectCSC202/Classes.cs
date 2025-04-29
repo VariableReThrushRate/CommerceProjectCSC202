@@ -17,6 +17,7 @@ namespace CommerceProjectCSC202
         public int ProductStockLeft { get; private set; } = 1000;
         public double ProductPrice;
         [JsonIgnore]  public bool  instock => ProductStockLeft > 0 ;
+
         [JsonConstructorAttribute]
         public Product(int Productid, string ProductName, string ProductDescription, int ProductStockLeft, double ProductPrice) 
         {
@@ -31,7 +32,7 @@ namespace CommerceProjectCSC202
             idtobe++;
             this.Productid = idtobe;
             this.ProductName = ProductName;
-            this.ProductPrice = ProductPrice;
+            this.ProductPrice = Math.Abs(ProductPrice);
             this.ProductDescription = ProductDescrip;
             this.ProductStockLeft = stock;
         }

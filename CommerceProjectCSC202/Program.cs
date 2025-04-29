@@ -240,6 +240,15 @@
             Console.WriteLine("Item not found!");
             
         }
+        static void Checkout(ref List<Product> cart) 
+        {
+            double price = 0;
+            foreach (Product tproduct in cart) 
+            {
+                price += tproduct.ProductPrice;
+            }
+
+        }
     }
     
 }

@@ -46,6 +46,7 @@ namespace CommerceProjectCSC202
         }
         public static void Save(List<Product> products) 
         {
+            //Could these be combined into one big try catch? Yes. Will I do so? No, because I don't want to.
             try
             {
                 File.Delete("Indexer.txt");
