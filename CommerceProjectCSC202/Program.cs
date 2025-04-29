@@ -19,10 +19,11 @@
                 Console.WriteLine("2. Get more details on a product by ID.");
                 Console.WriteLine("3. Add a Product to your cart.");
                 Console.WriteLine("4. Remove a Product from Cart.");
-                Console.WriteLine("5. Check out your cart.");
-                Console.WriteLine("6. Register a product.");
-                Console.WriteLine("7. Delist a product.");
-                Console.WriteLine("8. Add to the stock of a product.");
+                Console.WriteLine("5. Checkout your Cart.");
+                Console.WriteLine("6. Check out your cart.");
+                Console.WriteLine("7. Register a product.");
+                Console.WriteLine("8. Delist a product.");
+                Console.WriteLine("9. Add to the stock of a product.");
 
                 Console.Write("Insert selection here: ");
 
@@ -39,7 +40,7 @@
                         break;
                     }
                     int sel = Convert.ToInt32(brug);
-                    if (sel >= 1 && sel <= 8) // Update that value whenever you add a method:
+                    if (sel >= 1 && sel <= 9) // Update that value whenever you add a method:
                     {
                         switch (sel)
                         {
@@ -66,6 +67,9 @@
                                 PrintCart(ref cart);
                                 break;
                             case 6:
+                                throw new NotImplementedException();
+                                break;
+                            case 7:
                                 Console.WriteLine("Adding new product!");
                                 Console.Write("Insert a name for the product: ");
                                 string name = Console.ReadLine();
@@ -79,12 +83,12 @@
                                 Console.WriteLine("Adding new product!");
                                 products.Add(tproduct);
                                 break;
-                            case 7:
+                            case 8:
                                 Console.Write("Insert an ID Number now: ");
                                 string read4 = Console.ReadLine();
                                 Remove(int.Parse(read4), ref products);
                                 break;
-                            case 8:
+                            case 9:
                                 Console.Write("Insert an ID Number now: ");
                                 string read5 = Console.ReadLine();
                                 Console.Write("Insert how much stock to add: ");
