@@ -79,7 +79,7 @@ namespace CommerceProjectCSC202
 
         public override string ToString() 
         {
-            return $"Name: {ProductName}\nID is: {Productid}\nDescription: {ProductDescription}\nPrice: {ProductPrice}\n Stock Remaining: {ProductStockLeft}\n";
+            return $"Name: {ProductName}\nID is: {Productid}\nDescription: {ProductDescription}\nPrice: ${ProductPrice}\n Stock Remaining: {ProductStockLeft}\n";
         }
         
     }

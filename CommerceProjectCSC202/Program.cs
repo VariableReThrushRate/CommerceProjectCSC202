@@ -77,7 +77,7 @@ namespace CommerceProjectCSC202
                                 string name = Console.ReadLine();
                                 Console.Write("Insert a Description for the product: ");
                                 string description = Console.ReadLine();
-                                Console.Write("Insert a price for the product: ");
+                                Console.Write("Insert a price for the product: $");
                                 double price = double.Parse(Console.ReadLine());
                                 Console.Write("Insert an initial stock for the product: ");
                                 int stock = int.Parse(Console.ReadLine());
@@ -249,7 +249,7 @@ namespace CommerceProjectCSC202
             {
                 price += tproduct.ProductPrice;
             }
-            Console.WriteLine("Price is: " + price.ToString());
+            Console.WriteLine("Price is: $" + price.ToString());
             Console.WriteLine("DO NOT USE REAL DETAILS FOR THE FOLLOWING! IT IS MERELY AN EXERCISE. IT WILL NOT WRITE THIS INFO TO DISK, ONLY MEMORY.");
             Console.Write("Insert your credit card number: ");
             string number = Console.ReadLine();
