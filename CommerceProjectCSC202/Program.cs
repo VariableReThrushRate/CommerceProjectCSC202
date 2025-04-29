@@ -1,4 +1,6 @@
-﻿namespace CommerceProjectCSC202
+﻿using System.Text.RegularExpressions;
+
+namespace CommerceProjectCSC202
 {
     internal class Program
     {
@@ -67,7 +69,7 @@
                                 PrintCart(ref cart);
                                 break;
                             case 6:
-                                throw new NotImplementedException();
+                                Checkout(ref cart);
                                 break;
                             case 7:
                                 Console.WriteLine("Adding new product!");
@@ -247,8 +249,29 @@
             {
                 price += tproduct.ProductPrice;
             }
+            Console.WriteLine("Price is: " + price.ToString());
+            Console.WriteLine("DO NOT USE REAL DETAILS FOR THE FOLLOWING! IT IS MERELY AN EXERCISE. IT WILL NOT WRITE THIS INFO TO DISK, ONLY MEMORY.");
+            Console.Write("Insert your credit card number: ");
+            string number = Console.ReadLine();
+            Console.Write("Insert your credit card number expiration date: ");
+            string expiration = Console.ReadLine();
+            Console.Write("Insert your credit card Security code: ");
+            string cvc = Console.ReadLine();
+            Console.Write("Insert your Street Address: ");
+            // Thanks to https://gist.github.com/arundvp/188d92fefda9bb7546ee52a9ecf7aad6 for this regex. I would have no idea how to do this otherwise 💀
+            if (!Regex.IsMatch(number, @"^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|6(?:011|5[0-9]{2})[0-9]{12}|(?:2131|1800|35\d{3})\d{11})$")) 
+            {
+                Console.WriteLine("Credit card did not validate!");
+                return;
+            }
+            Console.WriteLine("Payment successful!");
+            cart = new List<Product>();
+
 
         }
+
+        
+        
     }
     
 }
