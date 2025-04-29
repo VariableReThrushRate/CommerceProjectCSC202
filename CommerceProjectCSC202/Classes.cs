@@ -12,15 +12,14 @@ namespace CommerceProjectCSC202
         public int Productid { get; private set; }
         public string ProductName { get; private set; }
         public string ProductDescription { get; private set; }
-        public int ProductStockLeft;
+        public static int ProductStockLeft { get; private set; } = 1000;
         public double ProductPrice;
         public bool instock => ProductStockLeft > 0;
-        public Product(string ProductName, string ProductDescrip, int ProductStock, double ProductPrice)
+        public Product(string ProductName, string ProductDescrip, double ProductPrice)
         {
             this.Productid = idtobe++;
             this.ProductName = ProductName;
             this.ProductPrice = ProductPrice;
-            this.ProductStockLeft = ProductStock;
             this.ProductDescription = ProductDescrip;
         }
         public void ReduceStock() 
@@ -45,6 +44,10 @@ namespace CommerceProjectCSC202
             {
                 throw new OutOfStockException();
             }
+        }
+        public static void SetStock(int stockcount) 
+        {
+            ProductStockLeft = stockcount;
         }
 
         public override string ToString() 

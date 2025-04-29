@@ -53,10 +53,14 @@
                                 GetInfo(int.Parse(read), ref products);
                                 break;
                             case 3:
-                                throw new NotImplementedException();
+                                Console.WriteLine("Insert an ID Number now: ");
+                                string read2 = Console.ReadLine();
+                                AddCart(int.Parse(read2), ref products, ref cart);
                                 break;
                             case 4:
-                                throw new NotImplementedException();
+                                Console.WriteLine("Insert an ID Number now: ");
+                                string read3 = Console.ReadLine();
+                                RemoveCart(int.Parse(read3), ref cart);
                                 break;
                             case 5:
                                 throw new NotImplementedException();
@@ -128,6 +132,42 @@
 
             }
             Console.WriteLine("No Products found!");
+            
+        }
+        static void AddCart(int searchID, ref List<Product> products, ref List<Product> cart) 
+        {
+
+            foreach (Product product in products)
+            {
+                if (product.Productid == searchID)
+                {
+                    cart.Add(product);
+                    Console.WriteLine("Added to cart!");
+                    return;
+                }
+
+            }
+            Console.WriteLine("Item not found!");
+        }
+        static void RemoveCart(int searchID, ref List<Product> cart)
+        {
+            Product product = null;
+            foreach (Product tproduct in cart) 
+            {
+                if (tproduct.Productid == searchID) 
+                {
+                    product = tproduct;
+                    break;
+                }
+            }
+            if (product == null)
+            {
+                Console.WriteLine("Item not found!");
+            }
+            else 
+            {
+                cart.Remove(product);
+            }
             
         }
     }
