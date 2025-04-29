@@ -23,6 +23,7 @@
                 Console.WriteLine("5. Check out your cart.");
                 Console.WriteLine("6. Register a product.");
                 Console.WriteLine("7. Delist a product.");
+                Console.WriteLine("8. Add to the stock of a product.");
 
                 Console.Write("Insert selection here: ");
 
@@ -39,7 +40,7 @@
                         break;
                     }
                     int sel = Convert.ToInt32(brug);
-                    if (sel >= 1 && sel <= 7) // Update that value whenever you add a method:
+                    if (sel >= 1 && sel <= 8) // Update that value whenever you add a method:
                     {
                         switch (sel)
                         {
@@ -73,13 +74,21 @@
                                 string description = Console.ReadLine();
                                 Console.Write("Insert a price for the product: ");
                                 int price = int.Parse(Console.ReadLine());
+                                Console.Write("Insert an initial stock for the product: ");
+                                int stock = int.Parse(Console.ReadLine());
+                                Product tproduct = new Product(name, description, stock, price);
                                 Console.WriteLine("Adding new product!");
-                                products.Add(new Product(name, description, price));
+                                products.Add(tproduct);
                                 break;
                             case 7:
                                 Console.WriteLine("Insert an ID Number now: ");
                                 string read4 = Console.ReadLine();
                                 Remove(int.Parse(read4), ref products);
+                                break;
+                            case 8:
+                                Console.WriteLine("Insert an ID Number now: ");
+                                string read5 = Console.ReadLine();
+                                Remove(int.Parse(read5), ref products);
                                 break;
                             default:
                                 Console.WriteLine("How did you get here???");
@@ -208,6 +217,20 @@
                 products.Remove(product);
             }
 
+        }
+        static void UpdateStock(int searchID, ref List<Product> products, int stockamount)
+        {
+            foreach (Product tproduct in products)
+            {
+                if (tproduct.Productid == searchID)
+                {
+                    tproduct.SetStock(stockamount);
+                    break;
+                }
+            }
+            
+            Console.WriteLine("Item not found!");
+            
         }
     }
     

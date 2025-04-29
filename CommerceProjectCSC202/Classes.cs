@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,15 +13,16 @@ namespace CommerceProjectCSC202
         public int Productid { get; private set; }
         public string ProductName { get; private set; }
         public string ProductDescription { get; private set; }
-        public static int ProductStockLeft { get; private set; } = 1000;
+        public int ProductStockLeft { get; private set; } = 1000;
         public double ProductPrice;
         public bool instock => ProductStockLeft > 0;
-        public Product(string ProductName, string ProductDescrip, double ProductPrice)
+        public Product(string ProductName, string ProductDescrip, int stock, double ProductPrice)
         {
             this.Productid = idtobe++;
             this.ProductName = ProductName;
             this.ProductPrice = ProductPrice;
             this.ProductDescription = ProductDescrip;
+            this.ProductStockLeft = stock;
         }
         public void ReduceStock() 
         {
@@ -32,6 +34,11 @@ namespace CommerceProjectCSC202
             else {
                 throw new OutOfStockException();
             }
+        }
+        public void AddStock(int stock)
+        {
+            int ProductStockLeftTMP = ProductStockLeft + Math.Abs(stock);
+            
         }
         public void ReduceStock(int stockreduce)
         {
@@ -45,9 +52,9 @@ namespace CommerceProjectCSC202
                 throw new OutOfStockException();
             }
         }
-        public static void SetStock(int stockcount) 
+        public  void SetStock(int stockcount) 
         {
-            ProductStockLeft = stockcount;
+            this.ProductStockLeft = stockcount;
         }
 
         public override string ToString() 
