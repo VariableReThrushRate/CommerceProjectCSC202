@@ -4,9 +4,8 @@
     {
         static void Main(string[] args)
         {
-            Random rand = new Random();
             //Variable Initialization area.
-            List<Product> products = new List<Product>();
+            List<Product> products = DataHandler.Load();
             List<Product> cart = new List<Product>();
 
 
@@ -121,6 +120,7 @@
                     Console.Write(exception.ToString());
                 }
             }
+            DataHandler.Save(products);
         }
         static void Search(string search, ref List<Product> products)
         {

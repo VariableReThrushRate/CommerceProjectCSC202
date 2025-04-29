@@ -28,7 +28,6 @@ namespace CommerceProjectCSC202
         public void AddStock(int stock)
         {
             ProductStockLeft = ProductStockLeft + Math.Abs(stock);
-
         }
         public void ReduceStock() 
         {
