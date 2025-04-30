@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CommerceProjectCSC202
 {
-    internal class Product
+    public class Product
     {
         [JsonIgnore]static int idtobe = 0;
         public int Productid { get; private set; }
@@ -82,5 +82,13 @@ namespace CommerceProjectCSC202
             return $"Name: {ProductName}\nID is: {Productid}\nDescription: {ProductDescription}\nPrice: ${ProductPrice}\n Stock Remaining: {ProductStockLeft}\n";
         }
         
+    }
+    public class Manager 
+    {
+
+    }
+    public class Customer 
+    {
+
     }
 }

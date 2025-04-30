@@ -15,17 +15,9 @@ namespace CommerceProjectCSC202
             {
                 // This interface system is based on my previous CSC 200 project. It's too good not to reuse for a console based commerce system!
                 Console.ForegroundColor = ConsoleColor.Green;
-
-                Console.WriteLine("Please select the method you'd like to run, or press EEE to exit.:");
-                Console.WriteLine("1. Search for a product by name.");
-                Console.WriteLine("2. Get more details on a product by ID.");
-                Console.WriteLine("3. Add a Product to your cart.");
-                Console.WriteLine("4. Remove a Product from Cart.");
-                Console.WriteLine("5. Display your Cart.");
-                Console.WriteLine("6. Checkout your cart.");
-                Console.WriteLine("7. Register a product.");
-                Console.WriteLine("8. Delist a product.");
-                Console.WriteLine("9. Add to the stock of a product.");
+                Console.WriteLine("Please select the interface you'd like to run, or press EEE to exit.:");
+                Console.WriteLine("1. Customer Interface");
+                Console.WriteLine("2. Manager Interface");
 
                 Console.Write("Insert selection here: ");
 
@@ -42,60 +34,15 @@ namespace CommerceProjectCSC202
                         break;
                     }
                     int sel = Convert.ToInt32(brug);
-                    if (sel >= 1 && sel <= 9) // Update that value whenever you add a method:
+                    if (sel >= 1 && sel <= 2) // Update that value whenever you add a method:
                     {
                         switch (sel)
                         {
                             case 1:
-                                Console.Write("Insert Selection now: ");
-                                Search(Console.ReadLine(), ref products);
+                                CustomerUI(ref products, ref cart);
                                 break;
                             case 2:
-                                Console.Write("Insert an ID Number now: ");
-                                string read = Console.ReadLine();
-                                GetInfo(int.Parse(read), ref products);
-                                break;
-                            case 3:
-                                Console.Write("Insert an ID Number now: ");
-                                string read2 = Console.ReadLine();
-                                AddCart(int.Parse(read2), ref products, ref cart);
-                                break;
-                            case 4:
-                                Console.Write("Insert an ID Number now: ");
-                                string read3 = Console.ReadLine();
-                                RemoveCart(int.Parse(read3), ref cart);
-                                break;
-                            case 5:
-                                PrintCart(ref cart);
-                                break;
-                            case 6:
-                                Checkout(ref cart);
-                                break;
-                            case 7:
-                                Console.WriteLine("Adding new product!");
-                                Console.Write("Insert a name for the product: ");
-                                string name = Console.ReadLine();
-                                Console.Write("Insert a Description for the product: ");
-                                string description = Console.ReadLine();
-                                Console.Write("Insert a price for the product: $");
-                                double price = double.Parse(Console.ReadLine());
-                                Console.Write("Insert an initial stock for the product: ");
-                                int stock = int.Parse(Console.ReadLine());
-                                Product tproduct = new Product(name, description, stock, price);
-                                Console.WriteLine("Adding new product!");
-                                products.Add(tproduct);
-                                break;
-                            case 8:
-                                Console.Write("Insert an ID Number now: ");
-                                string read4 = Console.ReadLine();
-                                Remove(int.Parse(read4), ref products);
-                                break;
-                            case 9:
-                                Console.Write("Insert an ID Number now: ");
-                                string read5 = Console.ReadLine();
-                                Console.Write("Insert how much stock to add: ");
-                                string read6 = Console.ReadLine();
-                                UpdateStock(int.Parse(read5), ref products, int.Parse(read6));
+                                ManagerUI(ref products, ref cart);
                                 break;
                             default:
                                 Console.WriteLine("How did you get here???");
@@ -271,8 +218,226 @@ namespace CommerceProjectCSC202
 
         }
 
-        
-        
+        public static void ManagerUI(ref List<Product> products, ref List<Product> cart)
+        {
+            // Add login to managers and customers
+            while (true)
+            {
+                // This interface system is based on my previous CSC 200 project. It's too good not to reuse for a console based commerce system!
+                Console.ForegroundColor = ConsoleColor.Green;
+
+
+                Console.WriteLine("Please select the method you'd like to run, or press EEE to exit.:");
+                Console.WriteLine("1. Manually add a Customer.");
+                Console.WriteLine("2. Add a manager.");
+                Console.WriteLine("3. Remove a manager.");
+                Console.WriteLine("4. Search for products.");
+                Console.WriteLine("5. Get more details on a product.");
+                Console.WriteLine("6. Register a product.");
+                Console.WriteLine("7. Delist a product.");
+                Console.WriteLine("8. Add to the stock of a product.");
+
+                Console.Write("Insert selection here: ");
+
+                Console.ForegroundColor = ConsoleColor.Blue;
+
+                string brug = Console.ReadLine();
+
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                try
+                {
+                    //exit line
+                    if (brug == "EEE")
+                    {
+                        break;
+                    }
+                    int sel = Convert.ToInt32(brug);
+                    if (sel >= 1 && sel <= 8) // Update that value whenever you add a method:
+                    {
+                        switch (sel)
+                        {
+                            
+                            case 1:
+                                throw new NotImplementedException();
+                                break;
+                            case 2:
+                                Console.Write("Insert an ID Number now: ");
+                                string read2 = Console.ReadLine();
+                                AddCart(int.Parse(read2), ref products, ref cart);
+                                break;
+                            case 3:
+                                throw new NotImplementedException();
+
+                                break;
+                            case 4:
+                                Console.Write("Insert Selection now: ");
+                                Search(Console.ReadLine(), ref products);
+                                break;
+                            case 5:
+                                Console.Write("Insert an ID Number now: ");
+                                string read = Console.ReadLine();
+                                GetInfo(int.Parse(read), ref products);
+                                break;
+                            case 6:
+                                Console.WriteLine("Adding new product!");
+                                Console.Write("Insert a name for the product: ");
+                                string name = Console.ReadLine();
+                                Console.Write("Insert a Description for the product: ");
+                                string description = Console.ReadLine();
+                                Console.Write("Insert a price for the product: $");
+                                double price = double.Parse(Console.ReadLine());
+                                Console.Write("Insert an initial stock for the product: ");
+                                int stock = int.Parse(Console.ReadLine());
+                                Product tproduct = new Product(name, description, stock, price);
+                                Console.WriteLine("Adding new product!");
+                                products.Add(tproduct);
+                                break;
+                            case 7:
+                                Console.Write("Insert an ID Number now: ");
+                                string read4 = Console.ReadLine();
+                                Remove(int.Parse(read4), ref products);
+                                break;
+                            case 8:
+                                Console.Write("Insert an ID Number now: ");
+                                string read5 = Console.ReadLine();
+                                Console.Write("Insert how much stock to add: ");
+                                string read6 = Console.ReadLine();
+                                UpdateStock(int.Parse(read5), ref products, int.Parse(read6));
+                                break;
+
+                            default:
+                                Console.WriteLine("How did you get here???");
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        throw new InvalidSelectionException();
+                    }
+                }
+                catch (NotImplementedException exception)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("That function is not implimented:" + exception.ToString());
+
+                }
+                catch (FormatException exception)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("That was not converted right! Please try again.");
+                    Console.WriteLine(exception.ToString());
+                }
+                catch (Exception exception)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("\nThat did not work. Please try again.\n");
+                    Console.Write(exception.ToString());
+                }
+                DataHandler.Save(products);
+            }
+            DataHandler.Save(products);
+        }
+        public static void CustomerUI(ref List<Product> products, ref List<Product> cart)
+        {
+            while (true)
+            {
+                // This interface system is based on my previous CSC 200 project. It's too good not to reuse for a console based commerce system!
+                Console.ForegroundColor = ConsoleColor.Green;
+
+
+                Console.WriteLine("Please select the method you'd like to run, or press EEE to exit.:");
+                Console.WriteLine("1. Search for a product by name.");
+                Console.WriteLine("2. Get more details on a product by ID.");
+                Console.WriteLine("3. Add a Product to your cart.");
+                Console.WriteLine("4. Remove a Product from Cart.");
+                Console.WriteLine("5. Display your Cart.");
+                Console.WriteLine("6. Checkout your cart.");
+                Console.WriteLine("7. Make an account.");
+                Console.WriteLine("8. Login.");
+
+                Console.Write("Insert selection here: ");
+
+                Console.ForegroundColor = ConsoleColor.Blue;
+
+                string brug = Console.ReadLine();
+
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                try
+                {
+                    //exit line
+                    if (brug == "EEE")
+                    {
+                        break;
+                    }
+                    int sel = Convert.ToInt32(brug);
+                    if (sel >= 1 && sel <= 8) // Update that value whenever you add a method:
+                    {
+                        switch (sel)
+                        {
+                            case 1:
+                                Console.Write("Insert Selection now: ");
+                                Search(Console.ReadLine(), ref products);
+                                break;
+                            case 2:
+                                Console.Write("Insert an ID Number now: ");
+                                string read = Console.ReadLine();
+                                GetInfo(int.Parse(read), ref products);
+                                break;
+                            case 3:
+                                Console.Write("Insert an ID Number now: ");
+                                string read2 = Console.ReadLine();
+                                AddCart(int.Parse(read2), ref products, ref cart);
+                                break;
+                            case 4:
+                                Console.Write("Insert an ID Number now: ");
+                                string read3 = Console.ReadLine();
+                                RemoveCart(int.Parse(read3), ref cart);
+                                break;
+                            case 5:
+                                PrintCart(ref cart);
+                                break;
+                            case 6:
+                                Checkout(ref cart);
+                                break;
+                            case 7:
+                                throw new NotImplementedException();
+                                break;
+                            case 8:
+                                throw new NotImplementedException();
+                                break;
+                            default:
+                                Console.WriteLine("How did you get here???");
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        throw new InvalidSelectionException();
+                    }
+                }
+                catch (NotImplementedException exception)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("That function is not implimented:" + exception.ToString());
+
+                }
+                catch (FormatException exception)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("That was not converted right! Please try again.");
+                    Console.WriteLine(exception.ToString());
+                }
+                catch (Exception exception)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("\nThat did not work. Please try again.\n");
+                    Console.Write(exception.ToString());
+                }
+                DataHandler.Save(products);
+            }
+            DataHandler.Save(products);
+        }
+
     }
     
 }

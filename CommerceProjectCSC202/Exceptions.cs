@@ -42,4 +42,22 @@ namespace CommerceProjectCSC202
         {
         }
     }
+    public class CustomerNotLogged : Exception
+    {
+        // Default constructor
+        public CustomerNotLogged() : base("This is the base one")
+        {
+            Console.WriteLine("Product is out of stock!");
+        }
+
+        // Constructor that takes a custom message
+        public CustomerNotLogged(string message) : base(message)
+        {
+        }
+
+        // Constructor that takes a custom message and inner exception
+        public CustomerNotLogged(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+    }
 }
