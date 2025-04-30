@@ -85,10 +85,62 @@ namespace CommerceProjectCSC202
     }
     public class Manager 
     {
-
+       [JsonIgnore] static int idtobe = 0;
+        public int id;
+        public string username;
+        public string password { get; private set; }
+        public static void Setid(int id)
+        {
+            idtobe = id;
+        }
+        public static int GetID()
+        {
+            return idtobe;
+        }
+        public Manager(string username, string password)
+        {
+            idtobe++;
+            this.id = idtobe;
+            this.username = username;
+            this.password = Program.sha256_hash(password);
+        }
+        [JsonConstructorAttribute]
+        public Manager(int id, string username, string password)
+        {
+            this.id = id;
+            this.username = username;
+            this.password = password;
+        }
     }
-    public class Customer 
+    public class Customer
     {
-
+        [JsonIgnore] static int idtobe = 0;
+        public int id;
+        public string username;
+        public string password { get; private set; }
+        public List<Product> cart = new List<Product>();
+        public static void Setid(int id)
+        {
+            idtobe = id;
+        }
+        public static int GetID()
+        {
+            return idtobe;
+        }
+        public Customer(string username, string password)
+        {
+            idtobe++;
+            this.id = idtobe;
+            this.username = username;
+            this.password = Program.sha256_hash(password);
+        }
+        [JsonConstructorAttribute]
+        public Customer(int id, string username, string password, List<Product> cart)
+        {
+            this.id = id;
+            this.username = username;
+            this.password = password;
+            this.cart = cart;
+        }
     }
 }
