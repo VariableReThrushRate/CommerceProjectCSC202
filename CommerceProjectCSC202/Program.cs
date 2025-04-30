@@ -10,8 +10,8 @@ namespace CommerceProjectCSC202
         {
             //Variable Initialization area.
             List<Product> products = DataHandler.Load();
-            List<Product> cart = new List<Product>();
-
+            List<Manager> managers = new List<Manager>();
+            List<Customer> customers = new List<Customer>();
 
             while (true)
             {
@@ -41,10 +41,10 @@ namespace CommerceProjectCSC202
                         switch (sel)
                         {
                             case 1:
-                                CustomerUI(ref products, ref cart);
+                                CustomerUI(ref products);
                                 break;
                             case 2:
-                                ManagerUI(ref products, ref cart);
+                                ManagerUI(ref products);
                                 break;
                             default:
                                 Console.WriteLine("How did you get here???");
@@ -220,7 +220,7 @@ namespace CommerceProjectCSC202
 
         }
 
-        public static void ManagerUI(ref List<Product> products, ref List<Product> cart)
+        public static void ManagerUI(ref List<Product> products)
         {
             // Add login to managers and customers
             while (true)
@@ -263,9 +263,7 @@ namespace CommerceProjectCSC202
                                 throw new NotImplementedException();
                                 break;
                             case 2:
-                                Console.Write("Insert an ID Number now: ");
-                                string read2 = Console.ReadLine();
-                                AddCart(int.Parse(read2), ref products, ref cart);
+                                throw new NotImplementedException();
                                 break;
                             case 3:
                                 throw new NotImplementedException();
@@ -339,8 +337,63 @@ namespace CommerceProjectCSC202
             }
             DataHandler.Save(products);
         }
-        public static void CustomerUI(ref List<Product> products, ref List<Product> cart)
+        public static void CustomerUI(ref List<Product> products)
         {
+            List<Customer> customers = DataHandler.LoadCustomers();
+            Customer logged = null;
+            while (true) {
+                try
+                {
+                    
+                    Console.ForegroundColor= ConsoleColor.Green;
+                    Console.WriteLine("Would you like to register a new account?");
+                    Console.Write("Y/N: ");
+                    while (true) 
+                    {
+                        string check = Console.ReadLine();
+                        if (check == "Y") 
+                        {
+                            Console.Write("Give a Username: ");
+                            string inputuname = Console.ReadLine();
+                            Console.Write("Give a Password: ");
+                            string inputpass = Console.ReadLine();
+                            try
+                            {
+                                customers.Add(new Customer(inputuname, inputpass));
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine("That didn't work. Please try again:");
+                                Console.Write(ex.ToString());
+                            }
+                        }
+                        else if (check == "N")
+                        { break; }
+                    }
+                    Console.WriteLine("Please Log in: ");
+                    Console.Write("Username: ");
+                    string username = Console.ReadLine();
+                    Console.Write("Password: ");
+                    string password = sha256_hash(Console.ReadLine());
+                    Console.ReadLine();
+                    int ucount = 0;
+                    foreach (Customer customer in customers) 
+                    {
+                        if (customer.username == username && customer.password == password) 
+                        {
+                            logged = customer;
+                        }
+                    }
+                    
+                    if (logged != null) { break; }
+
+                }
+                catch (Exception ex) 
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Login failed, reason below\n" + ex);
+                }
+            }
             while (true)
             {
                 // This interface system is based on my previous CSC 200 project. It's too good not to reuse for a console based commerce system!
@@ -354,8 +407,6 @@ namespace CommerceProjectCSC202
                 Console.WriteLine("4. Remove a Product from Cart.");
                 Console.WriteLine("5. Display your Cart.");
                 Console.WriteLine("6. Checkout your cart.");
-                Console.WriteLine("7. Make an account.");
-                Console.WriteLine("8. Login.");
 
                 Console.Write("Insert selection here: ");
 
@@ -388,18 +439,18 @@ namespace CommerceProjectCSC202
                             case 3:
                                 Console.Write("Insert an ID Number now: ");
                                 string read2 = Console.ReadLine();
-                                AddCart(int.Parse(read2), ref products, ref cart);
+                                AddCart(int.Parse(read2), ref products, ref logged.cart);
                                 break;
                             case 4:
                                 Console.Write("Insert an ID Number now: ");
                                 string read3 = Console.ReadLine();
-                                RemoveCart(int.Parse(read3), ref cart);
+                                RemoveCart(int.Parse(read3), ref logged.cart);
                                 break;
                             case 5:
-                                PrintCart(ref cart);
+                                PrintCart(ref logged.cart);
                                 break;
                             case 6:
-                                Checkout(ref cart);
+                                Checkout(ref logged.cart);
                                 break;
                             case 7:
                                 throw new NotImplementedException();
@@ -439,6 +490,7 @@ namespace CommerceProjectCSC202
             }
             DataHandler.Save(products);
         }
+        //Acquired from Stackoverflow
         public static String sha256_hash(String value)
         {
             StringBuilder Sb = new StringBuilder();
