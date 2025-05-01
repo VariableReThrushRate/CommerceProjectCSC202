@@ -16,7 +16,7 @@ namespace CommerceProjectCSC202
                 Thread.Sleep(rand.Next(2000, 25001));
                 foreach (Product product in products) 
                 {
-                    if (rand.Next(0, 101) < 25) 
+                    if (rand.Next(0, 101) < 12) 
                     {
                         Console.WriteLine(product.ProductName + " was purchased at random!");
                         product.ReduceStock(rand.Next(0, 8));
