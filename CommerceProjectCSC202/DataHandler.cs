@@ -61,7 +61,7 @@ namespace CommerceProjectCSC202
             {
                 string json = JsonSerializer.Serialize(products, options);
                 File.WriteAllText("CommerceData.json", json);
-                Console.WriteLine("Data saved!");
+                //Console.WriteLine("Data saved!");
             }
             catch (Exception ex)
             {
@@ -95,7 +95,7 @@ namespace CommerceProjectCSC202
                 File.Delete("Indexer.json");
                 string json = JsonSerializer.Serialize(dic);
                 File.WriteAllText("Indexer.json", json);
-                Console.WriteLine("Data saved!");
+                //Console.WriteLine("Data saved!");
             }
             catch (FileNotFoundException)
             {
@@ -171,7 +171,7 @@ namespace CommerceProjectCSC202
             {
                 string json = JsonSerializer.Serialize(customers, options);
                 File.WriteAllText("Customerdata.json", json);
-                Console.WriteLine("Data saved!");
+                //Console.WriteLine("Data saved!");
             }
             catch (Exception ex)
             {
@@ -203,7 +203,7 @@ namespace CommerceProjectCSC202
             {
                 string json = JsonSerializer.Serialize(managers, options);
                 File.WriteAllText("Managerdata.json", json);
-                Console.WriteLine("Data saved!");
+                //Console.WriteLine("Data saved!");
             }
             catch (Exception ex)
             {

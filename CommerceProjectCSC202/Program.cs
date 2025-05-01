@@ -10,8 +10,7 @@ namespace CommerceProjectCSC202
         static void Main(string[] args)
         {
             bool isover = false;
-            Task randomizer = Task.Run(() => Randomizer.RandomizerWorker(ref isover));
-
+            Thread RandThread = new Thread(() => Randomizer.RandomizerWorker(ref isover));
             //Variable Initialization area.
             List<Product> products = DataHandler.Load();
             List<Manager> managers = new List<Manager>();
@@ -81,7 +80,8 @@ namespace CommerceProjectCSC202
                 DataHandler.Save(products);
             }
             isover = true;
-            randomizer.Wait();
+            RandThread.Interrupt();
+            RandThread.Join();
             DataHandler.Save(products);
         }
         static void Search(string search, ref List<Product> products)
