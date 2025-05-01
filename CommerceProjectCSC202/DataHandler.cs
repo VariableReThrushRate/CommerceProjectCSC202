@@ -10,6 +10,7 @@ namespace CommerceProjectCSC202
 {
     internal class DataHandler
     {
+        // Initialize the options for JSON, as without these there are issues.
         static JsonSerializerOptions options = new JsonSerializerOptions
         {
         IncludeFields = true,
@@ -17,15 +18,18 @@ namespace CommerceProjectCSC202
         };
     public static List<Product> Load() 
         {
+            //Load the static variables from their dictionary in their own file.
             LoadStatics();
             try
             {
+                //Try loading the list of products.
                 var json = File.ReadAllText("CommerceData.json");
                 List<Product> list = JsonSerializer.Deserialize<List<Product>>(json, options);
                 return list;
             }
             catch (FileNotFoundException) 
             {
+                //If its not found, start from nothing.
                 Console.WriteLine("No data found. Initializing!");
                 return new List<Product>();
             }
@@ -39,6 +43,7 @@ namespace CommerceProjectCSC202
         public static void Save(List<Product> products) 
         {
             //Could these be combined into one big try catch? Yes. Will I do so? No, because I don't want to.
+            // The goal of this section is to delete the old backup, and move the more recent old file to the new backup.
             SaveStatics();
             try
             {
@@ -56,7 +61,7 @@ namespace CommerceProjectCSC202
             {
                 Console.WriteLine("Main save didn't exist. Creating.");
             }
-
+            //Now we actually get to write the data to the disk.
             try
             {
                 string json = JsonSerializer.Serialize(products, options);
@@ -73,6 +78,7 @@ namespace CommerceProjectCSC202
         {
             try
             {
+                //Similar to the last one, but has a dictionary instead to ensure that the ID iterator is stored right and persists across instances of the program.
                 var json = File.ReadAllText("Indexer.json");
                 Dictionary<string, int> dict = JsonSerializer.Deserialize<Dictionary<string, int>>(json, options);
                 Customer.Setid(dict["CustomerID"]);
