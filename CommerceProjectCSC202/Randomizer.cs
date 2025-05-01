@@ -11,15 +11,16 @@ namespace CommerceProjectCSC202
         public static void RandomizerWorker(ref bool run) 
         {
             Random rand = new Random();
-            while (run) 
+            while (!run) 
             {
                 List<Product> products = DataHandler.Load();
-                Thread.Sleep(rand.Next(500, 2501));
+                Thread.Sleep(rand.Next(2000, 25001));
                 foreach (Product product in products) 
                 {
                     if (rand.Next(0, 101) < 25) 
                     {
                         Console.WriteLine(product.ProductName + " was purchased at random!");
+                        product.ReduceStock(rand.Next(0, 8));
                     }
                 }
                 DataHandler.Save(products);
