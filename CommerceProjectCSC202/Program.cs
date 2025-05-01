@@ -9,25 +9,26 @@ namespace CommerceProjectCSC202
     {
         static void Main(string[] args)
         {
-            bool isover = false;
-            Thread RandThread = new Thread(() => Randomizer.RandomizerWorker(ref isover));
             //Variable Initialization area.
             List<Product> products = DataHandler.Load();
             List<Manager> managers = new List<Manager>();
             List<Customer> customers = new List<Customer>();
+            // Init the boolean that tells the thread to stop running.
+            bool isover = false;
+            Thread RandThread = new Thread(() => Randomizer.RandomizerWorker(ref isover, ref products));
+
 
             while (true)
             {
                 // This interface system is based on my previous CSC 200 project. It's too good not to reuse for a console based commerce system!
                 Console.ForegroundColor = ConsoleColor.Green;
+                // Wound up experimenting with nested interfaces
                 Console.WriteLine("Please select the interface you'd like to run, or press EEE to exit.:");
                 Console.WriteLine("1. Customer Interface");
                 Console.WriteLine("2. Manager Interface");
-
                 Console.Write("Insert selection here: ");
-
                 Console.ForegroundColor= ConsoleColor.Blue;
-
+                //Figure out what the user wants
                 string brug = Console.ReadLine();
 
                 Console.ForegroundColor = ConsoleColor.Yellow;
@@ -42,6 +43,7 @@ namespace CommerceProjectCSC202
                     if (sel >= 1 && sel <= 2) // Update that value whenever you add a method:
                     {
                         switch (sel)
+                        //What does the user want to go to? Manager? Customer?
                         {
                             case 1:
                                 CustomerUI(ref products);

@@ -8,12 +8,11 @@ namespace CommerceProjectCSC202
 {
     internal class Randomizer
     {
-        public static void RandomizerWorker(ref bool run) 
+        public static void RandomizerWorker(ref bool run, ref List<Product> products) 
         {
             Random rand = new Random();
             while (!run) 
             {
-                List<Product> products = DataHandler.Load();
                 Thread.Sleep(rand.Next(2000, 25001));
                 foreach (Product product in products) 
                 {
@@ -23,7 +22,6 @@ namespace CommerceProjectCSC202
                         product.ReduceStock(rand.Next(0, 8));
                     }
                 }
-                DataHandler.Save(products);
             }
            
         } 
