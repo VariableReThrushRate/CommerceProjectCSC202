@@ -223,8 +223,65 @@ namespace CommerceProjectCSC202
         public static void ManagerUI(ref List<Product> products)
         {
             List<Manager> managers = DataHandler.LoadManagers();
-            // Add login to managers and customers
+            Manager logged = null;
             while (true)
+            {
+                try
+                {
+
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Would you like to register a new account?");
+                    Console.Write("Y/N: ");
+                    while (true)
+                    {
+                        string check = Console.ReadLine();
+                        if (check == "Y")
+                        {
+                            Console.Write("Give a Username: ");
+                            string inputuname = Console.ReadLine();
+                            Console.Write("Give a Password: ");
+                            string inputpass = Console.ReadLine();
+                            try
+                            {
+                                managers.Add(new Manager(inputuname, inputpass));
+                                DataHandler.SaveManager(managers);
+                                break;
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine("That didn't work. Please try again:");
+                                Console.Write(ex.ToString());
+                            }
+                        }
+                        else if (check == "N")
+                        { break; }
+                    }
+                    Console.WriteLine("Please Log in: ");
+                    Console.Write("Username: ");
+                    string username = Console.ReadLine();
+                    Console.Write("Password: ");
+                    string password = sha256_hash(Console.ReadLine());
+                    int ucount = 0;
+                    foreach (Manager manager in managers)
+                    {
+                        if (manager.username == username && manager.password == password)
+                        {
+                            logged = manager;
+                        }
+                    }
+                    if (logged != null) { break; }
+                    Console.WriteLine("Login failed!");
+
+
+                }
+                catch (Exception ex)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Login failed, reason below\n" + ex);
+                }
+            }
+                // Add login to managers and customers
+                while (true)
             {
                 // This interface system is based on my previous CSC 200 project. It's too good not to reuse for a console based commerce system!
                 Console.ForegroundColor = ConsoleColor.Green;
@@ -259,9 +316,27 @@ namespace CommerceProjectCSC202
                     {
                         switch (sel)
                         {
-                            
+
                             case 1:
-                                throw new NotImplementedException();
+                                List<Customer> customers = DataHandler.LoadCustomers();
+                                while (true) {
+                                    Console.Write("Give a Username: ");
+                                    string inputuname = Console.ReadLine();
+                                    Console.Write("Give a Password: ");
+                                    string inputpass = Console.ReadLine();
+                                    try
+                                    {
+                                        customers.Add(new Customer(inputuname, inputpass));
+                                        DataHandler.SaveCustomer(customers);
+                                        break;
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        Console.WriteLine("That didn't work. Please try again:");
+                                        Console.Write(ex.ToString());
+                                    }
+                                }
+                                DataHandler.SaveCustomer(customers);
                                 break;
                             case 2:
                                 throw new NotImplementedException();

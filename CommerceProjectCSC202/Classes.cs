@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Runtime.Intrinsics.Arm;
+using System.Text.Json.Serialization;
 
 
 namespace CommerceProjectCSC202
@@ -138,5 +139,21 @@ namespace CommerceProjectCSC202
             this.cart = cart;
         }
         
+    }
+    public class PaymentInfo 
+    {
+        private string numbers;
+        public string expr { get; private set; }
+        public string cvc { get; private set; }
+        public string address { get; private set; }
+        [JsonConstructorAttribute]
+        public PaymentInfo(string numbers, string expr, string cvc, string address)
+        {
+            this.numbers = numbers;
+            this.expr = expr;
+            this.cvc = cvc;
+            this.address = address;
+        }        
+
     }
 }
