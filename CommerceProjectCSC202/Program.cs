@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using System.Text.RegularExpressions;
 using System.Security.Cryptography;
+using System.Threading;
 
 namespace CommerceProjectCSC202
 {
@@ -8,6 +9,9 @@ namespace CommerceProjectCSC202
     {
         static void Main(string[] args)
         {
+            bool isover = false;
+            Task randomizer = Task.Run(() => Randomizer.RandomizerWorker(ref isover));
+
             //Variable Initialization area.
             List<Product> products = DataHandler.Load();
             List<Manager> managers = new List<Manager>();
@@ -76,6 +80,8 @@ namespace CommerceProjectCSC202
                 }
                 DataHandler.Save(products);
             }
+            isover = true;
+            randomizer.Wait();
             DataHandler.Save(products);
         }
         static void Search(string search, ref List<Product> products)
@@ -302,13 +308,12 @@ namespace CommerceProjectCSC202
 
                 Console.WriteLine("Please select the method you'd like to run, or press EEE to exit.:");
                 Console.WriteLine("1. Manually add a Customer.");
-                Console.WriteLine("2. Add a manager.");
-                Console.WriteLine("3. Remove a manager.");
-                Console.WriteLine("4. Search for products.");
-                Console.WriteLine("5. Get more details on a product.");
-                Console.WriteLine("6. Register a product.");
-                Console.WriteLine("7. Delist a product.");
-                Console.WriteLine("8. Add to the stock of a product.");
+                Console.WriteLine("2. Remove a Customer.");
+                Console.WriteLine("3. Search for products.");
+                Console.WriteLine("4. Get more details on a product.");
+                Console.WriteLine("5. Register a product.");
+                Console.WriteLine("6. Delist a product.");
+                Console.WriteLine("7. Add to the stock of a product.");
 
                 Console.Write("Insert selection here: ");
 
@@ -325,7 +330,7 @@ namespace CommerceProjectCSC202
                         break;
                     }
                     int sel = Convert.ToInt32(brug);
-                    if (sel >= 1 && sel <= 8) // Update that value whenever you add a method:
+                    if (sel >= 1 && sel <= 7) // Update that value whenever you add a method:
                     {
                         switch (sel)
                         {
@@ -353,21 +358,36 @@ namespace CommerceProjectCSC202
                                 DataHandler.SaveCustomer(customers);
                                 break;
                             case 2:
-                                throw new NotImplementedException();
+                                List<Customer> customers2 = DataHandler.LoadCustomers();
+                                //deletion successful bool
+                                bool delsuc = false;
+                                
+                                while (delsuc) 
+                                {
+                                    //No way anyone makes that their username, right?
+                                    Console.Write("Give a Username (EEEEEEEEE to leave): ");
+                                    string inputuname2 = Console.ReadLine();
+                                    for (int i = 0; i < customers2.Count; i++)
+                                    {
+                                        if (customers2[i].username == inputuname2) 
+                                        {
+                                            customers2.Remove(customers2[i]);
+                                        }
+                                    }
+                                    
+                                }
+                                DataHandler.SaveCustomer(customers2);
                                 break;
                             case 3:
-                                throw new NotImplementedException();
-                                break;
-                            case 4:
                                 Console.Write("Insert Selection now: ");
                                 Search(Console.ReadLine(), ref products);
                                 break;
-                            case 5:
+                            case 4:
                                 Console.Write("Insert an ID Number now: ");
                                 string read = Console.ReadLine();
                                 GetInfo(int.Parse(read), ref products);
                                 break;
-                            case 6:
+                            case 5:
                                 Console.WriteLine("Adding new product!");
                                 Console.Write("Insert a name for the product: ");
                                 string name = Console.ReadLine();
@@ -381,12 +401,12 @@ namespace CommerceProjectCSC202
                                 Console.WriteLine("Adding new product!");
                                 products.Add(tproduct);
                                 break;
-                            case 7:
+                            case 6:
                                 Console.Write("Insert an ID Number now: ");
                                 string read4 = Console.ReadLine();
                                 Remove(int.Parse(read4), ref products);
                                 break;
-                            case 8:
+                            case 7:
                                 Console.Write("Insert an ID Number now: ");
                                 string read5 = Console.ReadLine();
                                 Console.Write("Insert how much stock to add: ");
@@ -514,7 +534,7 @@ namespace CommerceProjectCSC202
                         break;
                     }
                     int sel = Convert.ToInt32(brug);
-                    if (sel >= 1 && sel <= 8) // Update that value whenever you add a method:
+                    if (sel >= 1 && sel <= 6) // Update that value whenever you add a method:
                     {
                         switch (sel)
                         {
@@ -542,12 +562,6 @@ namespace CommerceProjectCSC202
                                 break;
                             case 6:
                                 Checkout(ref logged.cart, ref products);
-                                break;
-                            case 7:
-                                throw new NotImplementedException();
-                                break;
-                            case 8:
-                                throw new NotImplementedException();
                                 break;
                             default:
                                 Console.WriteLine("How did you get here???");
