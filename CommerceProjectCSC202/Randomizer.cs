@@ -13,9 +13,18 @@ namespace CommerceProjectCSC202
             Random rand = new Random();
             while (run) 
             {
+                List<Product> products = DataHandler.Load();
                 Thread.Sleep(rand.Next(500, 2501));
-                
+                foreach (Product product in products) 
+                {
+                    if (rand.Next(0, 101) < 25) 
+                    {
+                        Console.WriteLine(product.ProductName + " was purchased at random!");
+                    }
+                }
+                DataHandler.Save(products);
             }
+           
         } 
     }
 }
