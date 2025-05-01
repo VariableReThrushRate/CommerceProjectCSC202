@@ -191,7 +191,7 @@ namespace CommerceProjectCSC202
             Console.WriteLine("Item not found!");
             
         }
-        static void Checkout(ref List<Product> cart) 
+        static void Checkout(ref List<Product> cart, ref List<Product> products) 
         {
             double price = 0;
             foreach (Product tproduct in cart) 
@@ -217,6 +217,17 @@ namespace CommerceProjectCSC202
                 return;
             }
             Console.WriteLine("Payment successful!");
+            foreach (Product tproduct in cart) 
+            {
+                for (int i = 0; i < products.Count; i++) 
+                {
+                    if (tproduct.Productid == products[i].Productid) 
+                    {
+                        products[i].ReduceStock();
+                        Console.WriteLine(products[i].ProductName + " stock reduced!");
+                    }
+                }
+            }
             cart = new List<Product>();
 
 
@@ -530,7 +541,7 @@ namespace CommerceProjectCSC202
                                 PrintCart(ref logged.cart);
                                 break;
                             case 6:
-                                Checkout(ref logged.cart);
+                                Checkout(ref logged.cart, ref products);
                                 break;
                             case 7:
                                 throw new NotImplementedException();
