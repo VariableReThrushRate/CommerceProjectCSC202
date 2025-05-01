@@ -61,6 +61,7 @@ namespace CommerceProjectCSC202
                         throw new InvalidSelectionException();
                     }
                 }
+                //This big stack of catches informs the user of what went wrong.
                 catch (NotImplementedException exception)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
@@ -81,19 +82,22 @@ namespace CommerceProjectCSC202
                 }
                 DataHandler.Save(products);
             }
+            //When the program is over, clean up.
             isover = true;
             RandThread.Interrupt();
             RandThread.Join();
             DataHandler.Save(products);
         }
+        //This is a simple method to search for a product.
         static void Search(string search, ref List<Product> products)
         {
             int found = 0;
             foreach (Product product in products) 
             {
+                //If the string is "" this conveniently will return all products.
                 if (product.ProductName.ToLower().Contains(search.ToLower())) 
                 {
-                    
+                    //Simplified amount of products to return, as the detail method exists.
                     Console.WriteLine("Name is: " + product.ProductName);
                     Console.WriteLine("ID is: " + product.Productid.ToString());
                     found++;
@@ -105,13 +109,14 @@ namespace CommerceProjectCSC202
                 Console.WriteLine("No Products found!");
             }
         }
+        //Aforementioned detail method.
         static void GetInfo(int searchID, ref List<Product> products)
         {
             foreach (Product product in products)
             {
                 if (product.Productid == searchID)
                 {
-
+                    //Tostring override is still incredible.
                     Console.WriteLine(product);
                 }
 
@@ -119,9 +124,10 @@ namespace CommerceProjectCSC202
             Console.WriteLine("No Products found!");
             
         }
+        //Add a product to your cart.
         static void AddCart(int searchID, ref List<Product> products, ref List<Product> cart) 
         {
-
+            //Automatically searches for your product ID and adds it to your cart!
             foreach (Product product in products)
             {
                 if (product.Productid == searchID)
@@ -136,6 +142,7 @@ namespace CommerceProjectCSC202
         }
         static void RemoveCart(int searchID, ref List<Product> cart)
         {
+            //Does the opposite of the above in a very different way.
             Product product = null;
             foreach (Product tproduct in cart) 
             {
@@ -155,6 +162,7 @@ namespace CommerceProjectCSC202
             }
             
         }
+        //Simply print each item in the cart!
         static void PrintCart(ref List<Product> cart) 
         {
            Console.WriteLine("Printing cart!");
@@ -163,6 +171,7 @@ namespace CommerceProjectCSC202
                 Console.WriteLine(product);
             }
         }
+        // This removes a product from the products list.
         static void Remove(int searchID, ref List<Product> products)
         {
             Product product = null;
@@ -184,6 +193,7 @@ namespace CommerceProjectCSC202
             }
 
         }
+        //This is really just combines search and the update stock method on the class itself.
         static void UpdateStock(int searchID, ref List<Product> products, int stockamount)
         {
             foreach (Product tproduct in products)
@@ -199,14 +209,17 @@ namespace CommerceProjectCSC202
             Console.WriteLine("Item not found!");
             
         }
+        //One of the most dense methods. Breaking it down.
         static void Checkout(ref List<Product> cart, ref List<Product> products) 
         {
+            //Initialize the total price.
             double price = 0;
             foreach (Product tproduct in cart) 
             {
                 price += tproduct.ProductPrice;
             }
             Console.WriteLine("Price is: $" + price.ToString());
+            //Gather payment info from the user, and add a disclaimer
             Console.WriteLine("DO NOT USE REAL DETAILS FOR THE FOLLOWING! IT IS MERELY AN EXERCISE. IT WILL NOT WRITE THIS INFO TO DISK, ONLY MEMORY.");
             Console.Write("Insert your credit card number: ");
             string number = Console.ReadLine();
@@ -217,7 +230,7 @@ namespace CommerceProjectCSC202
             Console.Write("Insert your Street Address: ");
             string address = Console.ReadLine();
 
-
+            // Yes, that's a one line regex for checking credit card into.
             // Thanks to https://gist.github.com/arundvp/188d92fefda9bb7546ee52a9ecf7aad6 for this regex. I would have no idea how to do this otherwise 💀
             if (!Regex.IsMatch(number, @"^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|6(?:011|5[0-9]{2})[0-9]{12}|(?:2131|1800|35\d{3})\d{11})$")) 
             {
@@ -225,6 +238,7 @@ namespace CommerceProjectCSC202
                 return;
             }
             Console.WriteLine("Payment successful!");
+            //Reduce the stock of relevant products.
             foreach (Product tproduct in cart) 
             {
                 for (int i = 0; i < products.Count; i++) 
@@ -243,6 +257,7 @@ namespace CommerceProjectCSC202
 
         public static void ManagerUI(ref List<Product> products)
         {
+            //Import the list that contains all the managers, init the variable that will track the login.
             List<Manager> managers = DataHandler.LoadManagers();
             Manager logged = null;
             while (true)
@@ -251,10 +266,12 @@ namespace CommerceProjectCSC202
                 {
 
                     Console.ForegroundColor = ConsoleColor.Green;
+                    //Request if new account is needed
                     Console.WriteLine("Would you like to register a new account?");
                     Console.Write("Y/N: ");
                     while (true)
                     {
+                        
                         string check = Console.ReadLine();
                         if (check == "Y")
                         {
@@ -264,6 +281,7 @@ namespace CommerceProjectCSC202
                             string inputpass = Console.ReadLine();
                             try
                             {
+                                //Do some error handling here
                                 managers.Add(new Manager(inputuname, inputpass));
                                 DataHandler.SaveManager(managers);
                                 break;
@@ -281,16 +299,20 @@ namespace CommerceProjectCSC202
                     Console.Write("Username: ");
                     string username = Console.ReadLine();
                     Console.Write("Password: ");
+                    // Hashes the password, analagous to real world functionality.
                     string password = sha256_hash(Console.ReadLine());
                     int ucount = 0;
                     foreach (Manager manager in managers)
                     {
+                        //This checks and sees if the login is valid against all managers.
                         if (manager.username == username && manager.password == password)
                         {
+                            // If it is, then ensure that it is logged in properly.
                             logged = manager;
                         }
                     }
                     if (logged != null) { break; }
+                    // Will get here if no matches are found.
                     Console.WriteLine("Login failed!");
 
 
@@ -301,13 +323,11 @@ namespace CommerceProjectCSC202
                     Console.WriteLine("Login failed, reason below\n" + ex);
                 }
             }
-                // Add login to managers and customers
                 while (true)
             {
-                // This interface system is based on my previous CSC 200 project. It's too good not to reuse for a console based commerce system!
                 Console.ForegroundColor = ConsoleColor.Green;
 
-
+                //Same as before, show the options
                 Console.WriteLine("Please select the method you'd like to run, or press EEE to exit.:");
                 Console.WriteLine("1. Manually add a Customer.");
                 Console.WriteLine("2. Remove a Customer.");
@@ -320,7 +340,7 @@ namespace CommerceProjectCSC202
                 Console.Write("Insert selection here: ");
 
                 Console.ForegroundColor = ConsoleColor.Blue;
-
+                // And select one
                 string brug = Console.ReadLine();
 
                 Console.ForegroundColor = ConsoleColor.Yellow;
@@ -339,6 +359,7 @@ namespace CommerceProjectCSC202
 
                             case 1:
                                 //This could have been a method, but, eh.
+                                //Its job is to add a customer.
                                 List<Customer> customers = DataHandler.LoadCustomers();
                                 while (true) {
                                     Console.Write("Give a Username: ");
@@ -360,6 +381,7 @@ namespace CommerceProjectCSC202
                                 DataHandler.SaveCustomer(customers);
                                 break;
                             case 2:
+                                //Delete a customer by searching for exact username.
                                 List<Customer> customers2 = DataHandler.LoadCustomers();
                                 //deletion successful bool
                                 bool delsuc = false;
@@ -450,6 +472,7 @@ namespace CommerceProjectCSC202
         }
         public static void CustomerUI(ref List<Product> products)
         {
+            // Refer to Manager UI for an in depth explanation. These two are functionally the same, the only difference being what methods are called.
             List<Customer> customers = DataHandler.LoadCustomers();
             Customer logged = null;
             while (true) {
