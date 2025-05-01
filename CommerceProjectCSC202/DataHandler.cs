@@ -127,7 +127,7 @@ namespace CommerceProjectCSC202
                 return null;
             }
         }
-        public static List<Manager> LoadManager()
+        public static List<Manager> LoadManagers()
         {
             try
             {

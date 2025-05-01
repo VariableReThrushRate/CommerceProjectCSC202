@@ -222,6 +222,7 @@ namespace CommerceProjectCSC202
 
         public static void ManagerUI(ref List<Product> products)
         {
+            List<Manager> managers = DataHandler.LoadManagers();
             // Add login to managers and customers
             while (true)
             {
@@ -267,7 +268,6 @@ namespace CommerceProjectCSC202
                                 break;
                             case 3:
                                 throw new NotImplementedException();
-
                                 break;
                             case 4:
                                 Console.Write("Insert Selection now: ");
@@ -360,6 +360,8 @@ namespace CommerceProjectCSC202
                             try
                             {
                                 customers.Add(new Customer(inputuname, inputpass));
+                                DataHandler.SaveCustomer(customers);
+                                break;
                             }
                             catch (Exception ex)
                             {
@@ -375,7 +377,6 @@ namespace CommerceProjectCSC202
                     string username = Console.ReadLine();
                     Console.Write("Password: ");
                     string password = sha256_hash(Console.ReadLine());
-                    Console.ReadLine();
                     int ucount = 0;
                     foreach (Customer customer in customers) 
                     {
@@ -384,9 +385,10 @@ namespace CommerceProjectCSC202
                             logged = customer;
                         }
                     }
-                    
                     if (logged != null) { break; }
-
+                    Console.WriteLine("Login failed!");
+                    
+                    
                 }
                 catch (Exception ex) 
                 {
@@ -462,6 +464,7 @@ namespace CommerceProjectCSC202
                                 Console.WriteLine("How did you get here???");
                                 break;
                         }
+
                     }
                     else
                     {
@@ -486,8 +489,10 @@ namespace CommerceProjectCSC202
                     Console.WriteLine("\nThat did not work. Please try again.\n");
                     Console.Write(exception.ToString());
                 }
+                DataHandler.SaveCustomer(customers);
                 DataHandler.Save(products);
             }
+            DataHandler.SaveCustomer(customers);
             DataHandler.Save(products);
         }
         //Acquired from Stackoverflow
