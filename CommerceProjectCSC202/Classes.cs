@@ -140,20 +140,4 @@ namespace CommerceProjectCSC202
         }
         
     }
-    public class PaymentInfo 
-    {
-        private string numbers;
-        public string expr { get; private set; }
-        public string cvc { get; private set; }
-        public string address { get; private set; }
-        [JsonConstructorAttribute]
-        public PaymentInfo(string numbers, string expr, string cvc, string address)
-        {
-            this.numbers = numbers;
-            this.expr = expr;
-            this.cvc = cvc;
-            this.address = address;
-        }        
-
-    }
 }
